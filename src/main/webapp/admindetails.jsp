@@ -1,0 +1,54 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+    <%@ page import="java.sql.*" %>
+    <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>welcome to my display page</title>
+<style>
+h2 {text-align: center;}
+</style>
+</head>
+<body>
+
+<%
+try
+{
+       
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbase","root","Mirdula@1567");
+        String sql = "select * from Admin";
+        PreparedStatement stmt = con.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        if(rs.next()==false)
+        {
+            out.println("No Records in the table");
+        }
+        else
+        {%>
+       
+        <table border="1">
+        <tr><th>Email</th><th>Password</th></tr>
+        <%
+            do
+            {%>
+           
+            <tr><td><%= rs.getString(1)%></td><td><%= rs.getString(2)%></td></tr>
+           
+            <%}while(rs.next());
+        }
+       
+}
+catch(Exception e)
+{
+    out.println(e.getMessage());
+    e.getStackTrace();
+}
+%>
+</table><br>
+<a href="admin.jsp">Go to Admin Page</a>
+</body>
+</html>
