@@ -34,7 +34,6 @@ public class ChangePass1 extends HttpServlet {
 		String newpass=(String)session.getAttribute("newpas");
 		
 		response.setContentType("text/html");
-		pw.print("New Pass:" + newpass);
 		if(newpass != null) {
 			pw.print("Password changed successfully" + "\n");
 			pw.print("New Password : " + newpass + "\n");
